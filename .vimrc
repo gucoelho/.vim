@@ -78,7 +78,17 @@ let b:ale_fix_on_save = 1
 
 "  My Keymaps
 noremap <F8> :source $MYVIMRC <CR>
-noremap <C-F8> :split $MYVIMRC <CR>
+noremap <C-F8> :vsplit $MYVIMRC <CR>
+
+" split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
 
 set backspace=indent,eol,start
 
