@@ -9,16 +9,15 @@ call plug#begin('~/.vim/plugged')
     Plug 'airblade/vim-gitgutter'
     Plug 'tpope/vim-surround'
     Plug 'w0rp/ale'
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
+    Plug 'ctrlpvim/ctrlp.vim'
     Plug 'vim-airline/vim-airline'
     Plug 'mattn/emmet-vim'
     Plug 'terryma/vim-multiple-cursors'
     Plug 'pangloss/vim-javascript'
+    Plug 'OmniSharp/omnisharp-vim'
+    Plug 'editorconfig/editorconfig-vim'
     Plug 'mxw/vim-jsx'
-    Plug 'ryanoasis/vim-devicons'
 call plug#end()
-
            
 if has("gui_running")
   if has("gui_gtk2")
@@ -45,26 +44,41 @@ if !has("gui_running")
     let g:zenburn_high_Contrast=1
 endif
 
-"  NerdTree Config
+
+" CtrlP Config
+nnoremap <C-P> :CtrlP . <CR>  
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
+
+" NerdTree Config
 let NERDTreeQuitOnOpen = 1
 let NERDTreeShowHidden=1
 let NERDTreeAutoDeleteBuffer=1 
 let NERDTreeDirArrows = 1
 let NERDTreeMapActivateNode='<space>'
 
-nnoremap <C-B> :NERDTreeToggle <Enter>\
+nnoremap <C-B> :NERDTreeToggle <CR>\
 
 " ALE Config
 nnoremap <F12> :ALEGoToDefinition <Enter>
 let g:ale_completion_enabled = 1
-let b:ale_fixers = ['eslint']
+let b:ale_fixers = ['eslint', 'prettier']
+let g:ale_linters = {
+\ 'cs': ['OmniSharp']
+\}
 let b:ale_fix_on_save = 1
 
-" Vim Airline Config
-" let g:airline_powerline_fonts = 1
+" let g:OmniSharp_server_path = 'C:\OmniSharp\OmniSharp.exe'
 
 "  My Keymaps
-noremap <F8> :source $MYVIMRC <Enter>
+noremap <F8> :source $MYVIMRC <CR>
+noremap <C-F8> :split $MYVIMRC <CR>
 
 set backspace=indent,eol,start
 
